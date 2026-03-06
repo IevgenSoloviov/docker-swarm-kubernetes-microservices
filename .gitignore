@@ -1,0 +1,5 @@
+.env
+*.log
+*.tmp
+node_modules
+microservices/compose/minikube-linux-amd64

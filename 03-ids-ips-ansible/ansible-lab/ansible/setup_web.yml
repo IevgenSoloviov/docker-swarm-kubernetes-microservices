@@ -1,0 +1,160 @@
+---
+- name: Aprovisionament servidor web amb configuració personalitzada
+  hosts: clients
+  become: yes
+
+  tasks:
+
+    # ----------------------------
+    # Actualització sistema
+    # ----------------------------
+
+    - name: Actualitzar repositoris
+      apt:
+        update_cache: yes
+
+    # ----------------------------
+    # Aprovisionament sistema
+    # ----------------------------
+
+    - name: Instal·lar paquets base
+      apt:
+        name:
+          - git
+          - vim
+          - curl
+          - cron
+        state: present
+
+    - name: Assegurar que cron està actiu
+      service:
+        name: cron
+        state: started
+        enabled: yes
+
+    - name: Crear grup devops
+      group:
+        name: devops
+        state: present
+
+    - name: Crear usuari deploy
+      user:
+        name: deploy
+        group: devops
+        create_home: yes
+
+    - name: Crear directori de treball
+      file:
+        path: /opt/webapp
+        state: directory
+        owner: deploy
+        group: devops
+        mode: '0755'
+
+    # ----------------------------
+    # Instal·lació i desplegament
+    # ----------------------------
+
+    - name: Instal·lar nginx
+      apt:
+        name: nginx
+        state: present
+
+    - name: Assegurar que nginx està actiu
+      service:
+        name: nginx
+        state: started
+        enabled: yes
+
+    - name: Clonar aplicació web des de Git
+      git:
+        repo: https://github.com/docker/awesome-compose.git
+        dest: /opt/webapp/repo
+
+    # ----------------------------
+    # Seguretat bàsica
+    # ----------------------------
+
+    - name: Desactivar login root per SSH
+      lineinfile:
+        path: /etc/ssh/sshd_config
+        regexp: '^#?PermitRootLogin'
+        line: 'PermitRootLogin no'
+
+    - name: Crear fitxer intern d'administració amb permisos segurs
+      copy:
+        dest: /etc/projecte_ansible.conf
+        content: |
+          projecte=ansible-lab
+          entorn=proves
+          gestor=ansible
+        owner: root
+        group: root
+        mode: '0600'
+
+    # ----------------------------
+    # Gestió de configuració
+    # ----------------------------
+
+    - name: Crear cron de manteniment
+      cron:
+        name: neteja logs nginx
+        minute: "0"
+        hour: "3"
+        job: "find /var/log/nginx -type f -delete"
+
+    # ----------------------------
+    # Desplegament web personalitzat
+    # ----------------------------
+
+    - name: Crear fitxer CSS personalitzat
+      copy:
+        dest: /var/www/html/style.css
+        content: |
+          body {
+            background-color: #0f172a;
+            font-family: Arial, sans-serif;
+            color: white;
+            text-align: center;
+            padding-top: 100px;
+          }
+
+          .container {
+            background: #1e293b;
+            border-radius: 10px;
+            padding: 40px;
+            width: 500px;
+            margin: auto;
+            box-shadow: 0 0 20px rgba(0,0,0,0.5);
+          }
+
+          h1 {
+            color: #38bdf8;
+          }
+
+          .node {
+            font-size: 20px;
+            margin-top: 20px;
+            color: #facc15;
+          }
+
+    - name: Crear pàgina web personalitzada
+      copy:
+        dest: /var/www/html/index.html
+        content: |
+          <!DOCTYPE html>
+          <html>
+          <head>
+            <title>Servidor Gestionat per Ansible</title>
+            <link rel="stylesheet" href="style.css">
+          </head>
+          <body>
+            <div class="container">
+              <h1>Servidor configurat correctament</h1>
+              <p>Aquest servidor ha estat desplegat automàticament amb Ansible</p>
+              <div class="node">
+                Node: {{ inventory_hostname }}
+              </div>
+            </div>
+          </body>
+          </html>

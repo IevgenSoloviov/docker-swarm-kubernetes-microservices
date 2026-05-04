@@ -1,0 +1,40 @@
+# ============================== Filebeat Configuration ==============================
+
+filebeat.config.modules:
+  path: ${path.config}/modules.d/*.yml
+  reload.enabled: false
+
+# ======================= Template Settings =======================
+
+setup.template.settings:
+  index.number_of_shards: 1
+
+# =============================== Kibana ===============================
+
+setup.kibana:
+  host: "localhost:5601"
+
+# =============================== Output ===============================
+
+output.elasticsearch:
+  hosts: ["https://localhost:9200"]
+
+  # IMPORTANT: No incloure credencials reals en repositoris públics
+  username: "elastic"
+  # password: "<REPLACE_WITH_PASSWORD>"
+
+  ssl.verification_mode: none
+  preset: balanced
+
+# =============================== Processors ===============================
+
+processors:
+  - add_host_metadata:
+      when.not.contains.tags: forwarded
+  - add_cloud_metadata: ~
+  - add_docker_metadata: ~
+  - add_kubernetes_metadata: ~
+
+# =============================== Logging ===============================
+
+logging.level: info

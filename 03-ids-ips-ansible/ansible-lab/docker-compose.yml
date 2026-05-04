@@ -1,0 +1,40 @@
+version: '3.9'
+
+services:
+
+  ansible-control:
+    build:
+      context: .
+      dockerfile: dockerfiles/Dockerfile.ansible
+    container_name: ansible-control
+    volumes:
+      - ./ansible:/ansible
+      - ./inventory:/inventory
+    networks:
+      - lab_net
+
+  managed-node-01:
+    build:
+      context: .
+      dockerfile: dockerfiles/Dockerfile.client
+    container_name: managed-node-01
+    ports:
+      - "2221:22"
+      - "8081:80"
+    networks:
+      - lab_net
+
+  managed-node-02:
+    build:
+      context: .
+      dockerfile: dockerfiles/Dockerfile.client
+    container_name: managed-node-02
+    ports:
+      - "2222:22"
+      - "8082:80"
+    networks:
+      - lab_net
+
+networks:
+  lab_net:
+    driver: bridge

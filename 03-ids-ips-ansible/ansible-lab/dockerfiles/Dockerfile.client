@@ -1,0 +1,14 @@
+FROM debian:12
+
+RUN apt update && \
+    apt install -y openssh-server python3 sudo && \
+    mkdir /var/run/sshd
+
+# Crear usuari per Ansible
+RUN useradd -m ansible && \
+    echo "ansible:ansible" | chpasswd && \
+    adduser ansible sudo
+
+EXPOSE 22
+
+CMD ["/usr/sbin/sshd", "-D"]

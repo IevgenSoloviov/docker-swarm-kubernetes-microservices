@@ -1,0 +1,34 @@
+# =================== Kibana Server ===================
+
+server.port: 5601
+server.host: "0.0.0.0"
+
+# =================== Elasticsearch ===================
+
+elasticsearch.hosts: ["https://localhost:9200"]
+
+# Autenticació mitjançant usuari de servei
+# IMPORTANT: No incloure passwords reals en repositoris públics
+elasticsearch.username: "kibana_system"
+# elasticsearch.password: "<REPLACE_WITH_PASSWORD>"
+
+# Desactivar verificació SSL en entorn de laboratori
+elasticsearch.ssl.verificationMode: none
+
+# =================== Logging ===================
+
+logging:
+  appenders:
+    file:
+      type: file
+      fileName: /var/log/kibana/kibana.log
+      layout:
+        type: json
+  root:
+    appenders:
+      - default
+      - file
+
+# =================== System ===================
+
+pid.file: /run/kibana/kibana.pid

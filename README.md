@@ -1,305 +1,171 @@
-# Docker Swarm i Kubernetes: Desenvolupament i Desplegament de Microserveis en Entorns Cloud
+<div align="center">
 
-## Descripció del projecte
-
-Aquest projecte implementa el desplegament d'una aplicació contenitzada utilitzant Docker Compose, Docker Swarm i Kubernetes.
-
-L'objectiu és comprendre el procés complet d'evolució d'una arquitectura local basada en contenidors cap a un entorn orquestrat i més proper a producció.
-
-El projecte parteix d'una arquitectura multicapa tipus LAMP, formada per una capa web, una capa d'aplicació i una base de dades. Posteriorment, aquesta base serveix com a preparació per a la part avançada del projecte, on es treballa amb una plataforma de microserveis més completa.
-
----
-
-## Tecnologies utilitzades
-
-![Docker](https://img.shields.io/badge/Docker-2496ED?style=flat&logo=docker&logoColor=white)
-![Kubernetes](https://img.shields.io/badge/Kubernetes-326CE5?style=flat&logo=kubernetes&logoColor=white)
-![Nginx](https://img.shields.io/badge/Nginx-009639?style=flat&logo=nginx&logoColor=white)
-![MariaDB](https://img.shields.io/badge/MariaDB-003545?style=flat&logo=mariadb&logoColor=white)
-![Linux](https://img.shields.io/badge/Linux-FCC624?style=flat&logo=linux&logoColor=black)
-
-- Docker
-- Docker Compose
-- Docker Swarm
-- Kubernetes
-- Minikube
-- Nginx
-- PHP-FPM
-- MariaDB
-- YAML
-- Linux / WSL2
-
----
-
-## Objectius principals
-
-- Crear un entorn multi-contenidor amb Docker Compose.
-- Migrar el desplegament a Docker Swarm.
-- Aplicar conceptes bàsics d'orquestració.
-- Implementar mesures bàsiques de seguretat.
-- Migrar el projecte a Kubernetes.
-- Crear Deployments, Services, Secrets, ConfigMaps i Ingress.
-- Validar escalat i autorecuperació de serveis.
-
----
-
-## Arquitectura general
-
-L'arquitectura del projecte es basa en tres capes principals:
+<br/>
 
 ```
-Client / Navegador
-        |
-        v
-      Nginx
-        |
-        v
-    PHP-FPM
-        |
-        v
-    MariaDB
+██╗  ██╗ █████╗ ██████╗ ███████╗    ██████╗ ███████╗██╗   ██╗ ██████╗ ██████╗ ███████╗
+██║ ██╔╝██╔══██╗██╔══██╗██╔════╝    ██╔══██╗██╔════╝██║   ██║██╔═══██╗██╔══██╗██╔════╝
+█████╔╝ ╚█████╔╝██████╔╝███████╗    ██║  ██║█████╗  ╚██╗ ██╔╝██║   ██║██████╔╝███████╗
+██╔═██╗ ██╔══██╗██╔══██╗╚════██║    ██║  ██║██╔══╝   ╚████╔╝ ██║   ██║██╔═══╝ ╚════██║
+██║  ██╗╚█████╔╝██║  ██║███████║    ██████╔╝███████╗  ╚██╔╝  ╚██████╔╝██║     ███████║
+╚═╝  ╚═╝ ╚════╝ ╚═╝  ╚═╝╚══════╝    ╚═════╝ ╚══════╝   ╚═╝    ╚═════╝ ╚═╝     ╚══════╝
+
+                    P  O  R  T  F  O  L  I  O
 ```
 
-- En **Docker Compose**, els serveis s'executen en un únic host.
-- En **Docker Swarm**, els serveis passen a gestionar-se com a serveis orquestrats, amb possibilitat d'escalat i xarxes overlay.
-- En **Kubernetes**, l'aplicació es desplega mitjançant objectes declaratius com Pods, Deployments, Services, Secrets i Ingress.
+### Del contenidor local a la producció cloud-native
+
+*Docker · Swarm · Kubernetes · Helm · Istio · Prometheus · Grafana*
+
+<br/>
+
+![Docker](https://img.shields.io/badge/Docker-2496ED?style=for-the-badge&logo=docker&logoColor=white)
+![Kubernetes](https://img.shields.io/badge/Kubernetes-326CE5?style=for-the-badge&logo=kubernetes&logoColor=white)
+![Helm](https://img.shields.io/badge/Helm-0F1689?style=for-the-badge&logo=helm&logoColor=white)
+![Istio](https://img.shields.io/badge/Istio-466BB0?style=for-the-badge&logo=istio&logoColor=white)
+![Prometheus](https://img.shields.io/badge/Prometheus-E6522C?style=for-the-badge&logo=prometheus&logoColor=white)
+![Grafana](https://img.shields.io/badge/Grafana-F46800?style=for-the-badge&logo=grafana&logoColor=white)
+
+<br/>
+
+</div>
 
 ---
 
-## Fases del projecte
+## 👋 Sobre aquest repositori
 
-### Fase 1 — Docker Compose
+Aquest repositori recull el cicle complet d'aprenentatge en **orquestració de contenidors**, des d'un entorn local amb Docker Compose fins a una arquitectura de microserveis professional amb Kubernetes, Helm i Istio.
 
-En aquesta fase s'ha creat un entorn multi-contenidor amb:
-
-- Nginx com a servidor web.
-- PHP-FPM com a capa d'aplicació.
-- MariaDB com a base de dades.
-- Xarxes separades frontend i backend.
-- Volum persistent per a la base de dades.
-- Fitxer `.env` per centralitzar la configuració.
-
-**Comandes principals:**
-```bash
-docker compose up -d --build
-docker ps
-docker compose logs
-docker compose down
-```
+Els dos projectes estan estructurats de forma progressiva: el primer estableix les bases, el segon aplica conceptes avançats d'un entorn real de producció.
 
 ---
 
-### Fase 2 — Docker Swarm
-
-En aquesta fase s'ha migrat el projecte a Docker Swarm per introduir orquestració bàsica.
-
-S'han treballat els següents conceptes:
-
-- Inicialització del clúster.
-- Desplegament amb `docker stack deploy`.
-- Serveis replicables.
-- Xarxes overlay.
-- Escalat manual.
-- Load balancing intern.
-- Docker Secrets.
-- Polítiques de reinici.
-
-**Comandes principals:**
-```bash
-docker swarm init
-docker node ls
-docker stack deploy -c docker-stack.yml mystack
-docker service ls
-docker service scale mystack_app=3
-docker service logs mystack_app
-```
-
----
-
-### Fase 3 — Seguretat a Docker Swarm
-
-S'han aplicat mesures bàsiques de seguretat per reduir la superfície d'atac:
-
-- Ús de Docker Secrets.
-- Xarxes internes.
-- No exposició directa de la base de dades.
-- Execució amb usuari no privilegiat.
-- Sistema de fitxers en mode read-only.
-- Comunicació TLS automàtica entre nodes Swarm.
-
-Aquestes mesures permeten apropar el desplegament a un entorn més segur i controlat.
-
----
-
-### Fase 4 — Kubernetes
-
-En aquesta fase s'ha migrat l'entorn a Kubernetes utilitzant Minikube.
-
-S'han implementat:
-
-- Deployments.
-- Services.
-- Secrets.
-- ConfigMaps.
-- Ingress.
-- Escalat de rèpliques.
-- Probes de salut.
-- Gestió de recursos amb requests i limits.
-- Validació amb port-forward i Ingress.
-
-**Comandes principals:**
-```bash
-minikube start
-kubectl get nodes
-kubectl apply -f kubernetes/
-kubectl get pods
-kubectl get svc
-kubectl scale deployment app-deployment --replicas=3
-kubectl port-forward svc/nginx-service 8081:80
-```
-
----
-
-## Accés a l'aplicació
-
-### Docker Compose
-```bash
-docker compose up -d --build
-```
-Accés: [http://localhost:8080/](http://localhost:8080/)
-
----
-
-### Kubernetes amb port-forward
-```bash
-kubectl port-forward svc/nginx-service 8081:80
-```
-Accés: [http://127.0.0.1:8081/](http://127.0.0.1:8081/)
-
----
-
-### Kubernetes amb Ingress
-
-Domini utilitzat: `microservices.local`
-
-Cal afegir el domini al fitxer `/etc/hosts` i tenir actiu l'Ingress Controller de Minikube.
-
-```bash
-minikube addons enable ingress
-minikube tunnel
-```
-
----
-
-## Estructura del repositori
+## 📂 Estructura del repositori
 
 ```
-.
-├── compose/
-│   ├── docker-compose.yml
-│   ├── app/
-│   └── nginx/
+kubernetes-devops-portfolio/
 │
-├── swarm/
-│   └── docker-stack.yml
+├── 📁 01-docker-basico/         ← Projecte base: Docker Compose → Swarm → Kubernetes
+│   ├── README.md
+│   ├── compose/
+│   ├── swarm/
+│   ├── kubernetes/
+│   ├── docs/
+│   └── images/
 │
-├── kubernetes/
-│   ├── app-deployment.yaml
-│   ├── nginx-deployment.yaml
-│   ├── db-deployment.yaml
-│   ├── services.yaml
-│   ├── ingress.yaml
-│   └── secrets.yaml
+├── 📁 02-microservices-avanzado/ ← Projecte avançat: ShopMicro + Helm + Istio
+│   ├── README.md
+│   ├── compose/
+│   ├── swarm/
+│   ├── k8s/
+│   ├── helm/
+│   ├── istio/
+│   ├── docs/
+│   └── images/
 │
-├── docs/
-│   └── annex-projecte-basic.md
-│
-├── images/
-│
-├── .env.example
 ├── .gitignore
-└── README.md
+└── README.md                    ← Estàs aquí
 ```
 
 ---
 
-## Evidències recomanades
+## 🗺️ Roadmap d'aprenentatge
 
-Les captures es poden afegir dins la carpeta `images/`.
-
-Captures recomanades:
-
-- Docker Compose funcionant.
-- Sortida de `docker ps`.
-- Aplicació web accessible.
-- Docker Swarm inicialitzat.
-- Serveis Swarm desplegats.
-- Escalat de rèpliques.
-- Kubernetes pods en estat Running.
-- Services creats.
-- Accés amb port-forward.
-- Accés amb Ingress.
-
-Exemple d'inserció d'una captura:
-
-```markdown
-![Docker Compose funcionant](images/compose-web.png)
+```
+[1] Docker Compose        →   Entorn local multi-contenidor
+        ↓
+[2] Docker Swarm          →   Orquestració bàsica + seguretat
+        ↓
+[3] Kubernetes            →   Deployments, Services, Ingress, Secrets
+        ↓
+[4] Kubernetes Avançat    →   HPA, StatefulSets, Probes, Helm
+        ↓
+[5] Istio Service Mesh    →   Circuit breaker, retries, observabilitat
+        ↓
+[6] Monitorització        →   Prometheus + Grafana + Kiali
 ```
 
 ---
 
-## Problemes detectats i solucions
+## 📦 Projecte 01 — Docker Bàsic
 
-### ImagePullBackOff en Kubernetes
+> **Arquitectura multicapa LAMP contenitzada i orquestrada**
 
-**Causa:** la imatge no estava disponible dins de Minikube.
-
-**Solució:**
-```bash
-minikube image load microservices-app:1.0
+```
+Nginx  →  PHP-FPM  →  MariaDB
 ```
 
----
-
-### NodePort no accessible
-
-**Causa:** limitació de Minikube amb driver Docker.
-
-**Solució:**
-```bash
-kubectl port-forward svc/nginx-service 8081:80
-```
-
----
-
-### Problemes amb hostPath
-
-**Causa:** ruta no accessible dins de Minikube.
-
-**Solució:** substituir per ConfigMap o volum gestionat.
-
----
-
-## Comparativa de tecnologies
-
-| Tecnologia | Avantatges | Limitacions |
+| Fase | Tecnologia | Conceptes |
 |---|---|---|
-| Docker Compose | Simple, ràpid i útil per desenvolupament local | No és distribuït ni escalable |
-| Docker Swarm | Orquestració senzilla, rèpliques i load balancing | Menys flexible que Kubernetes |
-| Kubernetes | Escalable, robust i molt utilitzat en producció | Més complex de configurar |
+| 1 | Docker Compose | Multi-contenidor, xarxes, volums |
+| 2 | Docker Swarm | Orquestració, escalat, overlay |
+| 3 | Seguretat | Secrets, read-only, usuari no privilegiat |
+| 4 | Kubernetes | Deployments, Ingress, ConfigMaps, HPA |
+
+📁 **[Veure projecte →](./01-docker-basico/README.md)**
 
 ---
 
-## Conclusions
+## 🚀 Projecte 02 — ShopMicro (Avançat)
 
-Aquest projecte ha permès validar el cicle complet de desplegament d'una aplicació contenitzada.
+> **Plataforma de microserveis cloud-native amb Service Mesh i monitorització**
 
-Primer s'ha treballat amb Docker Compose per crear un entorn local reproduïble. Després s'ha migrat a Docker Swarm per introduir orquestració, escalat i seguretat bàsica. Finalment, s'ha desplegat el projecte a Kubernetes, aplicant un model més professional basat en Deployments, Services, Secrets, ConfigMaps i Ingress.
+```
+Ingress  →  API Gateway  →  product / order / user  →  MySQL · Redis · RabbitMQ
+```
 
-El resultat és una base sòlida per entendre la diferència entre contenidors locals i orquestració en entorns cloud-native.
+| Fase | Tecnologia | Conceptes |
+|---|---|---|
+| 1 | Kubernetes | StatefulSets, HPA, probes |
+| 2 | Helm | Packaging, upgrades, historial |
+| 3 | Istio | Service Mesh, circuit breaker, retries |
+| 4 | Observabilitat | Prometheus, Grafana, Kiali |
+
+📁 **[Veure projecte →](./02-microservices-avanzado/README.md)**
 
 ---
 
-## Autor
+## 🛠️ Tecnologies utilitzades
 
-Projecte realitzat com a pràctica d'orquestració de contenidors amb Docker Swarm i Kubernetes.
+<div align="center">
+
+| Capa | Eines |
+|---|---|
+| **Contenidors** | Docker, Docker Compose |
+| **Orquestració bàsica** | Docker Swarm |
+| **Orquestració avançada** | Kubernetes, Minikube |
+| **Packaging** | Helm |
+| **Service Mesh** | Istio, Envoy |
+| **Monitorització** | Prometheus, Grafana, Kiali |
+| **Web / App** | Nginx, PHP-FPM |
+| **Bases de dades** | MariaDB, MySQL |
+| **Cache / Cues** | Redis, RabbitMQ |
+| **Infraestructura** | Linux, WSL2, YAML |
+
+</div>
+
+---
+
+## 🔐 .gitignore
+
+Un sol `.gitignore` a l'arrel cobreix tot el repositori:
+
+```gitignore
+.env
+*.log
+.DS_Store
+node_modules/
+__pycache__/
+.vscode/
+.idea/
+```
+
+---
+
+<div align="center">
+
+*Projecte d'aprenentatge progressiu en DevOps i orquestració de contenidors*
+
+**Docker → Swarm → Kubernetes → Helm → Istio**
+
+</div>

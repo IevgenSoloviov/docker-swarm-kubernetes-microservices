@@ -167,7 +167,7 @@ Projecte de ciberseguretat que implementa un sistema de detecció i prevenció d
 
 ---
 
-## 🔗 Relació entre projectes
+##  Relació entre projectes
 
 Els tres blocs no són independents, sinó que representen **fases d'un mateix entorn integrat**:
 

@@ -36,7 +36,7 @@
 
 ---
 
-## 📋 Descripció general
+##  Descripció general
 
 Aquest repositori recull el desenvolupament complet del **projecte intermodular del cicle ASIX**, estructurat en tres blocs que cobreixen àrees clau de l'administració de sistemes moderns.
 

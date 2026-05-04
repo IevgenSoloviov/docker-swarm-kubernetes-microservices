@@ -46,7 +46,7 @@ L'objectiu és simular un entorn real on es despleguen serveis, s'orquestren inf
 
 ---
 
-## 🎯 Objectius principals
+##  Objectius principals
 
 - 🐳 Dominar el cicle complet de contenització i orquestració
 - ☸️ Desplegar arquitectures cloud-native amb Kubernetes
@@ -57,7 +57,7 @@ L'objectiu és simular un entorn real on es despleguen serveis, s'orquestren inf
 
 ---
 
-## 📁 Estructura del repositori
+##  Estructura del repositori
 
 ```
 asix-projecte-intermodular/
@@ -69,7 +69,7 @@ asix-projecte-intermodular/
 
 ---
 
-## 🗂️ Projectes inclosos
+##  Projectes inclosos
 
 ### 🔹 01 — Docker Bàsic
 
@@ -198,7 +198,7 @@ Infraestructura → Microserveis → Trànsit → IDS → Anàlisi → Resposta
 
 ---
 
-## 🛠️ Stack tecnològic complet
+##  Stack tecnològic complet
 
 | Àrea | Tecnologies |
 |---|---|
@@ -214,7 +214,7 @@ Infraestructura → Microserveis → Trànsit → IDS → Anàlisi → Resposta
 
 ---
 
-## 🏁 Conclusions
+## Conclusions
 
 Aquest projecte intermodular integra les àrees fonamentals de l'administració de sistemes moderns en un entorn coherent i progressiu:
 

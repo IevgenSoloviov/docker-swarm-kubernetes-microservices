@@ -266,7 +266,7 @@ resources:
 
 ---
 
-## 🎛️ Helm — Gestió del desplegament
+##  Helm — Gestió del desplegament
 
 S'ha creat un **Helm Chart** complet per gestionar tot el cicle de vida del desplegament:
 

@@ -332,7 +332,7 @@ spec:
 
 ---
 
-## 🖥️ Accés a l'aplicació
+##  Accés a l'aplicació
 
 ### 🐳 Docker Compose
 
@@ -378,7 +378,7 @@ Routing configurat:
 
 ---
 
-## 📁 Estructura del repositori
+##  Estructura del repositori
 
 ```
 shopmicro/
@@ -498,7 +498,7 @@ kubectl port-forward svc/nginx-service 8081:80
 
 ---
 
-## 📊 Comparativa de tecnologies
+##  Comparativa de tecnologies
 
 | Tecnologia | ✅ Avantatges | ⚠️ Limitacions |
 |---|---|---|
@@ -510,7 +510,7 @@ kubectl port-forward svc/nginx-service 8081:80
 
 ---
 
-## 🏁 Conclusions
+##  Conclusions
 
 **ShopMicro** demostra la implementació completa d'una arquitectura de microserveis real sobre Kubernetes, integrant les eines i pràctiques pròpies dels entorns professionals:
 

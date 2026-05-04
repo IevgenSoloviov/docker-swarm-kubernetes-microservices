@@ -35,7 +35,7 @@
 
 ---
 
-## 📋 Descripció del projecte
+##  Descripció del projecte
 
 **ShopMicro** és una plataforma basada en microserveis desplegada sobre Kubernetes, dissenyada per simular un entorn real de producció amb alta disponibilitat, escalabilitat i monitorització completa.
 
@@ -45,7 +45,7 @@ El projecte segueix una evolució progressiva des d'un desplegament inicial amb 
 
 ---
 
-## 🎯 Objectius principals
+##  Objectius principals
 
 - 🐳 Crear un entorn multi-contenidor inicial amb Docker Compose
 - 🐝 Migrar i orquestrar serveis amb Docker Swarm
@@ -58,7 +58,7 @@ El projecte segueix una evolució progressiva des d'un desplegament inicial amb 
 
 ---
 
-## 🏗️ Arquitectura del sistema
+##  Arquitectura del sistema
 
 ```
 ┌──────────────────────────────────────────────────────┐
@@ -107,7 +107,7 @@ El projecte segueix una evolució progressiva des d'un desplegament inicial amb 
 
 ---
 
-## 🚀 Fases del projecte
+##  Fases del projecte
 
 ### Fase 1 — Docker Compose
 
@@ -202,7 +202,7 @@ kubectl port-forward svc/nginx-service 8081:80
 
 ---
 
-## ☸️ Kubernetes — Característiques avançades
+##  Kubernetes — Característiques avançades
 
 ### ⚖️ Escalat automàtic (HPA)
 
@@ -283,7 +283,7 @@ helm install shopmicro ./helm -n shopmicro-helm
 
 ---
 
-## 🕸️ Istio Service Mesh
+##  Istio Service Mesh
 
 ### Funcionalitats implementades
 
@@ -316,7 +316,7 @@ spec:
 
 ---
 
-## 📊 Monitorització
+##  Monitorització
 
 ### Prometheus
 
@@ -413,7 +413,7 @@ shopmicro/
 
 ---
 
-## 🔒 Seguretat aplicada
+##  Seguretat aplicada
 
 | Mesura | Descripció |
 |---|---|
@@ -425,7 +425,7 @@ shopmicro/
 
 ---
 
-## 🖼️ Evidències recomanades
+##  Evidències recomanades
 
 Les captures es poden afegir dins la carpeta `docs/images/`.
 

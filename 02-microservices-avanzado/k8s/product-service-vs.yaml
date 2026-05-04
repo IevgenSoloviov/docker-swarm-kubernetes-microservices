@@ -1,0 +1,17 @@
+apiVersion: networking.istio.io/v1
+kind: VirtualService
+metadata:
+  name: product-service-vs
+  namespace: shopmicro
+spec:
+  hosts:
+    - product-service
+  http:
+    - timeout: 3s
+      retries:
+        attempts: 3
+        perTryTimeout: 1s
+        retryOn: "5xx"
+      route:
+        - destination:
+            host: product-service

@@ -1,0 +1,176 @@
+version: "3.9"
+
+services:
+
+  frontend:
+    image: 192.168.100.10:5000/blanes-frontend:1.0
+    ports:
+      - "8080:80"
+    networks:
+      - frontend-net
+    deploy:
+      replicas: 1
+      restart_policy:
+        condition: any
+
+  api-gateway:
+    image: 192.168.100.10:5000/blanes-api-gateway:1.0
+    ports:
+      - "8081:80"
+    networks:
+      - backend-net
+    deploy:
+      replicas: 1
+      restart_policy:
+        condition: any
+
+  product-service:
+    image: 192.168.100.10:5000/blanes-product-service:1.0
+    environment:
+      DB_HOST: db-products
+      REDIS_HOST: cache
+    networks:
+      - backend-net
+    deploy:
+      replicas: 4
+      restart_policy:
+        condition: any
+      update_config:
+        parallelism: 1
+        delay: 10s
+        failure_action: rollback
+        monitor: 30s
+      rollback_config:
+        parallelism: 2
+        delay: 5s
+
+  order-service:
+    image: 192.168.100.10:5000/blanes-order-service:1.0
+    environment:
+      DB_HOST: db-orders
+      RABBITMQ_HOST: message-queue
+    networks:
+      - backend-net
+    deploy:
+      replicas: 3
+      restart_policy:
+        condition: any
+
+  user-service:
+    image: 192.168.100.10:5000/blanes-user-service:1.0
+    networks:
+      - backend-net
+    deploy:
+      replicas: 1
+      restart_policy:
+        condition: any
+
+  notification-service:
+    image: 192.168.100.10:5000/blanes-notification-service:1.0
+    environment:
+      RABBITMQ_HOST: message-queue
+    networks:
+      - backend-net
+    deploy:
+      replicas: 1
+      restart_policy:
+        condition: any
+
+  db-products:
+    image: mysql:8.0
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: incidencies
+    volumes:
+      - db_products_data:/var/lib/mysql
+    networks:
+      - backend-net
+    deploy:
+      replicas: 1
+      restart_policy:
+        condition: any
+
+  db-orders:
+    image: mysql:8.0
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: tasques
+    volumes:
+      - db_orders_data:/var/lib/mysql
+    networks:
+      - backend-net
+    deploy:
+      replicas: 1
+      restart_policy:
+        condition: any
+
+  cache:
+    image: redis:7
+    volumes:
+      - redis_data:/data
+    networks:
+      - backend-net
+    deploy:
+      replicas: 1
+      restart_policy:
+        condition: any
+
+  message-queue:
+    image: rabbitmq:3-management
+    ports:
+      - "15672:15672"
+    volumes:
+      - rabbitmq_data:/var/lib/rabbitmq
+    networks:
+      - backend-net
+    deploy:
+      replicas: 1
+      restart_policy:
+        condition: any
+
+  cadvisor:
+    image: gcr.io/cadvisor/cadvisor:v0.49.1
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock:ro
+      - /sys:/sys:ro
+      - /var/lib/docker/:/var/lib/docker:ro
+    networks:
+      - monitoring-net
+    deploy:
+      mode: global
+      restart_policy:
+        condition: any
+
+  prometheus:
+    image: prom/prometheus:v2.51.2
+    configs:
+      - source: prometheus_config
+        target: /etc/prometheus/prometheus.yml
+    ports:
+      - "9090:9090"
+    networks:
+      - monitoring-net
+    deploy:
+      replicas: 1
+      restart_policy:
+        condition: any
+
+networks:
+  frontend-net:
+    external: true
+
+  backend-net:
+    external: true
+
+  monitoring-net:
+    external: true
+
+volumes:
+  db_products_data:
+  db_orders_data:
+  redis_data:
+  rabbitmq_data:
+
+configs:
+  prometheus_config:
+    file: ./prometheus/prometheus.yml

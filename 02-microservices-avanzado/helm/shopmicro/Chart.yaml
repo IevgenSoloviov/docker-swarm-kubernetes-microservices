@@ -1,0 +1,6 @@
+apiVersion: v2
+name: shopmicro
+description: Plataforma de microserveis ShopMicro per a la gestió d'incidències urbanes
+type: application
+version: 1.0.0
+appVersion: "1.0"

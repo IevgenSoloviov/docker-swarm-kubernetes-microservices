@@ -1,0 +1,36 @@
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: db-products
+  namespace: {{ .Values.namespace }}
+spec:
+  serviceName: db-products-headless
+  replicas: 1
+  selector:
+    matchLabels:
+      app: db-products
+  template:
+    metadata:
+      labels:
+        app: db-products
+    spec:
+      containers:
+        - name: mysql
+          image: "{{ .Values.dbProducts.image.repository }}:{{ .Values.dbProducts.image.tag }}"
+          imagePullPolicy: {{ .Values.dbProducts.image.pullPolicy }}
+          envFrom:
+            - secretRef:
+                name: db-products-secret
+          ports:
+            - containerPort: 3306
+          volumeMounts:
+            - name: data
+              mountPath: /var/lib/mysql
+  volumeClaimTemplates:
+    - metadata:
+        name: data
+      spec:
+        accessModes: ["ReadWriteOnce"]
+        resources:
+          requests:
+            storage: {{ .Values.dbProducts.persistence.size }}

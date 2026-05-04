@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="ca">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ShopMicro · Incidències Urbanes</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+  <main class="container">
+    <section class="hero">
+      <span class="badge">ShopMicro · Blanes</span>
+      <h1>Gestió d’Incidències Urbanes</h1>
+      <p>Portal ciutadà per registrar, consultar i gestionar incidències municipals.</p>
+    </section>
+
+    <section class="grid">
+      <article class="card">
+        <h2>Nova incidència</h2>
+
+        <form id="formIncidencia">
+          <label>Tipus</label>
+          <input id="tipus" type="text" placeholder="Ex: Enllumenat" required>
+
+          <label>Descripció</label>
+          <input id="descripcio" type="text" placeholder="Ex: Farola apagada" required>
+
+          <label>Ubicació</label>
+          <input id="ubicacio" type="text" placeholder="Ex: Passeig de Mar" required>
+
+          <button type="submit">Crear incidència</button>
+        </form>
+
+        <p id="missatge" class="missatge"></p>
+      </article>
+
+      <article class="card">
+        <h2>Consultes del sistema</h2>
+
+        <div class="actions">
+          <button onclick="carregarIncidencies()">Carregar incidències</button>
+          <button onclick="carregarTasques()">Carregar tasques</button>
+          <button onclick="carregarUsuaris()">Carregar usuaris</button>
+        </div>
+
+        <p class="hint">Les dades es consulten a través de l’API Gateway.</p>
+      </article>
+    </section>
+
+    <section class="card">
+      <h2>Incidències registrades</h2>
+      <div id="incidencies" class="list">Encara no s’han carregat incidències.</div>
+    </section>
+
+    <section class="grid">
+      <article class="card">
+        <h2>Tasques</h2>
+        <div id="tasques" class="list">Encara no s’han carregat tasques.</div>
+      </article>
+
+      <article class="card">
+        <h2>Usuaris</h2>
+        <div id="usuaris" class="list">Encara no s’han carregat usuaris.</div>
+      </article>
+    </section>
+  </main>
+
+  <script>
+    const API = "http://localhost:8083/api";
+
+    document.getElementById("formIncidencia").onsubmit = async (e) => {
+      e.preventDefault();
+
+      const incidencia = {
+        tipus: document.getElementById("tipus").value,
+        descripcio: document.getElementById("descripcio").value,
+        ubicacio: document.getElementById("ubicacio").value
+      };
+
+      const res = await fetch(`${API}/incidencies/`, {
+        method: "POST",
+        headers: {"Content-Type": "application/json"},
+        body: JSON.stringify(incidencia)
+      });
+
+      const missatge = document.getElementById("missatge");
+
+      if (res.ok) {
+        missatge.textContent = "Incidència creada correctament.";
+        missatge.className = "missatge ok";
+        e.target.reset();
+        carregarIncidencies();
+      } else {
+        missatge.textContent = "Error en crear la incidència.";
+        missatge.className = "missatge error";
+      }
+    };
+
+    async function carregarIncidencies() {
+      const res = await fetch(`${API}/incidencies/`);
+      const data = await res.json();
+
+      document.getElementById("incidencies").innerHTML = data.map(i => `
+        <article class="item">
+          <div>
+            <strong>#${i.id} · ${i.tipus}</strong>
+            <p>${i.descripcio}</p>
+            <small>${i.ubicacio} · Estat: ${i.estat}</small>
+          </div>
+          <button class="danger" onclick="eliminarIncidencia(${i.id})">Eliminar</button>
+        </article>
+      `).join("");
+    }
+
+    async function eliminarIncidencia(id) {
+      const confirmar = confirm(`Vols eliminar la incidència #${id}?`);
+      if (!confirmar) return;
+
+      await fetch(`${API}/incidencies/${id}`, {
+        method: "DELETE"
+      });
+
+      carregarIncidencies();
+    }
+
+    async function carregarTasques() {
+      const res = await fetch(`${API}/tasques/`);
+      const data = await res.json();
+
+      document.getElementById("tasques").innerHTML = data.map(t => `
+        <article class="item simple">
+          <strong>Tasca #${t.id}</strong>
+          <p>Incidència associada: ${t.incidencia_id}</p>
+          <small>${t.tecnic} · ${t.estat}</small>
+        </article>
+      `).join("");
+    }
+
+    async function carregarUsuaris() {
+      const res = await fetch(`${API}/usuaris/`);
+      const data = await res.json();
+
+      document.getElementById("usuaris").innerHTML = data.map(u => `
+        <article class="item simple">
+          <strong>${u.nom}</strong>
+          <p>Identificador: ${u.id}</p>
+          <small>Rol: ${u.rol}</small>
+        </article>
+      `).join("");
+    }
+
+    carregarIncidencies();
+  </script>
+</body>
+</html>

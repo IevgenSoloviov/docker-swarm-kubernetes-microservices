@@ -1,0 +1,209 @@
+services:
+
+  frontend:
+    image: nginx:1.25
+    container_name: blanes_frontend
+    restart: unless-stopped
+    ports:
+      - "8082:80"
+    volumes:
+      - ./frontend:/usr/share/nginx/html:ro
+    networks:
+      - frontend-net
+    read_only: true
+    tmpfs:
+      - /var/cache/nginx
+      - /var/run
+      - /tmp
+    healthcheck:
+      test: ["CMD-SHELL", "nginx -t || exit 1"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+
+  api-gateway:
+    image: nginx:1.25
+    restart: unless-stopped
+    ports:
+      - "8083:80"
+    volumes:
+      - ./api-gateway:/etc/nginx/conf.d:ro
+    networks:
+      - frontend-net
+      - backend-net
+    depends_on:
+      product-service:
+        condition: service_started
+      order-service:
+        condition: service_started
+      user-service:
+        condition: service_started
+    healthcheck:
+      test: ["CMD-SHELL", "nginx -t || exit 1"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+
+  product-service:
+    build: ./product-service
+    container_name: blanes_incidencies_service
+    restart: unless-stopped
+    environment:
+      DB_HOST: db-products
+      DB_USER: root
+      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
+      PRODUCTS_DB: ${PRODUCTS_DB}
+      REDIS_HOST: cache
+    networks:
+      - backend-net
+    expose:
+      - "5000"
+    depends_on:
+      db-products:
+        condition: service_healthy
+      cache:
+        condition: service_healthy
+    healthcheck:
+      test: ["CMD-SHELL", "python -c 'import urllib.request; urllib.request.urlopen(\"http://127.0.0.1:5000/health\")' || exit 1"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+
+  order-service:
+    build: ./order-service
+    container_name: blanes_tasques_service
+    restart: unless-stopped
+    environment:
+      DB_HOST: db-orders
+      RABBITMQ_HOST: message-queue
+    networks:
+      - backend-net
+    expose:
+      - "5001"
+    depends_on:
+      db-orders:
+        condition: service_healthy
+      message-queue:
+        condition: service_started
+    healthcheck:
+      test: ["CMD-SHELL", "python -c 'import urllib.request; urllib.request.urlopen(\"http://127.0.0.1:5001/health\")' || exit 1"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+
+  user-service:
+    build: ./user-service
+    container_name: blanes_usuaris_service
+    restart: unless-stopped
+    networks:
+      - backend-net
+    expose:
+      - "5002"
+    healthcheck:
+      test: ["CMD-SHELL", "python -c 'import urllib.request; urllib.request.urlopen(\"http://127.0.0.1:5002/health\")' || exit 1"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+
+  notification-service:
+    build: ./notification-service
+    container_name: blanes_notificacions_service
+    restart: unless-stopped
+    environment:
+      RABBITMQ_HOST: message-queue
+    networks:
+      - backend-net
+    depends_on:
+      message-queue:
+        condition: service_started
+    healthcheck:
+      test: ["CMD-SHELL", "python -c 'print(\"ok\")' || exit 1"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+
+  db-products:
+    image: mysql:8.0
+    container_name: blanes_db_incidencies
+    restart: unless-stopped
+    environment:
+      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
+      MYSQL_DATABASE: ${PRODUCTS_DB}
+    volumes:
+      - db_products_data:/var/lib/mysql
+    networks:
+      - backend-net
+    expose:
+      - "3306"
+    healthcheck:
+      test: ["CMD-SHELL", "mysqladmin ping -h localhost -p${MYSQL_ROOT_PASSWORD} || exit 1"]
+      interval: 30s
+      timeout: 10s
+      retries: 5
+
+  db-orders:
+    image: mysql:8.0
+    container_name: blanes_db_tasques
+    restart: unless-stopped
+    environment:
+      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
+      MYSQL_DATABASE: ${ORDERS_DB}
+    volumes:
+      - db_orders_data:/var/lib/mysql
+    networks:
+      - backend-net
+    expose:
+      - "3306"
+    healthcheck:
+      test: ["CMD-SHELL", "mysqladmin ping -h localhost -p${MYSQL_ROOT_PASSWORD} || exit 1"]
+      interval: 30s
+      timeout: 10s
+      retries: 5
+
+  cache:
+    image: redis:7
+    container_name: blanes_cache
+    restart: unless-stopped
+    volumes:
+      - redis_data:/data
+    networks:
+      - backend-net
+    expose:
+      - "6379"
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 30s
+      timeout: 10s
+      retries: 5
+
+  message-queue:
+    image: rabbitmq:3-management
+    container_name: blanes_rabbitmq
+    restart: unless-stopped
+    ports:
+      - "15673:15672"
+    volumes:
+      - rabbitmq_data:/var/lib/rabbitmq
+    networks:
+      - backend-net
+    expose:
+      - "5672"
+    healthcheck:
+      test: ["CMD-SHELL", "rabbitmq-diagnostics -q ping || exit 1"]
+      interval: 30s
+      timeout: 20s
+      retries: 5
+      start_period: 60s
+
+networks:
+  frontend-net:
+    driver: bridge
+
+  backend-net:
+    driver: bridge
+
+volumes:
+  db_products_data:
+  db_orders_data:
+  redis_data:
+  rabbitmq_data:

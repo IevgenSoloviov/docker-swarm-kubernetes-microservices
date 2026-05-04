@@ -1,0 +1,12 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: db-products-headless
+  namespace: shopmicro-helm
+spec:
+  clusterIP: None
+  selector:
+    app: db-products
+  ports:
+    - port: 3306
+      targetPort: 3306

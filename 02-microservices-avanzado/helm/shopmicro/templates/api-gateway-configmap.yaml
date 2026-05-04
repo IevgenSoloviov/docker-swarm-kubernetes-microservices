@@ -1,0 +1,39 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: api-gateway-nginx-config
+  namespace: shopmicro-helm
+data:
+  default.conf: |
+    server {
+        listen 80;
+        server_name _;
+
+        access_log /dev/stdout;
+        error_log /dev/stderr;
+
+        location /health {
+            return 200 'ok';
+            add_header Content-Type text/plain;
+        }
+
+        location /api/incidencies/ {
+            rewrite ^/api/incidencies/?(.*)$ /incidencies/$1 break;
+            proxy_pass http://product-service:5000;
+        }
+
+        location /api/tasques/ {
+            rewrite ^/api/tasques/?(.*)$ /tasques/$1 break;
+            proxy_pass http://order-service:5001;
+        }
+
+        location /api/usuaris/ {
+            rewrite ^/api/usuaris/?(.*)$ /usuaris/$1 break;
+            proxy_pass http://user-service:5002;
+        }
+
+        location / {
+            return 200 "Resposta des de api-gateway\n";
+            add_header Content-Type text/plain;
+        }
+    }

@@ -1,0 +1,47 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: order-service
+  namespace: {{ .Values.namespace }}
+spec:
+  replicas: {{ .Values.orderService.replicas }}
+  selector:
+    matchLabels:
+      app: order-service
+  template:
+    metadata:
+      labels:
+        app: order-service
+    spec:
+      containers:
+        - name: order-service
+          image: "{{ .Values.orderService.image.repository }}:{{ .Values.orderService.image.tag }}"
+          imagePullPolicy: {{ .Values.orderService.image.pullPolicy }}
+          ports:
+            - containerPort: 5001
+          env:
+            - name: DB_HOST
+              value: db-orders-headless
+            - name: RABBITMQ_HOST
+              value: message-queue
+          resources:
+            requests:
+              memory: {{ .Values.orderService.resources.requests.memory | quote }}
+              cpu: {{ .Values.orderService.resources.requests.cpu | quote }}
+            limits:
+              memory: {{ .Values.orderService.resources.limits.memory | quote }}
+              cpu: {{ .Values.orderService.resources.limits.cpu | quote }}
+          readinessProbe:
+            httpGet:
+              path: /ready
+              port: 5001
+            initialDelaySeconds: 5
+            periodSeconds: 5
+            failureThreshold: 2
+          livenessProbe:
+            httpGet:
+              path: /health
+              port: 5001
+            initialDelaySeconds: 30
+            periodSeconds: 10
+            failureThreshold: 3

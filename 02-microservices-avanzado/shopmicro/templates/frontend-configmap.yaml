@@ -1,0 +1,24 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: frontend-html
+  namespace: {{ .Values.namespace }}
+data:
+  index.html: |
+    <!DOCTYPE html>
+    <html lang="ca">
+    <head>
+      <meta charset="UTF-8">
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <title>Portal d'incidències urbanes de Blanes</title>
+    </head>
+    <body>
+      <h1>Portal d'incidències urbanes de Blanes</h1>
+      <p>Frontend desplegat amb Helm a Kubernetes.</p>
+      <ul>
+        <li><a href="/api/incidencies/">Incidències</a></li>
+        <li><a href="/api/tasques/">Tasques</a></li>
+        <li><a href="/api/usuaris/">Usuaris</a></li>
+      </ul>
+    </body>
+    </html>

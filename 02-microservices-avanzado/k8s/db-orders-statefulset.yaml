@@ -1,0 +1,35 @@
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: db-orders
+  namespace: shopmicro
+spec:
+  serviceName: db-orders-headless
+  replicas: 1
+  selector:
+    matchLabels:
+      app: db-orders
+  template:
+    metadata:
+      labels:
+        app: db-orders
+    spec:
+      containers:
+        - name: mysql
+          image: mysql:8.0
+          envFrom:
+            - secretRef:
+                name: db-orders-secret
+          ports:
+            - containerPort: 3306
+          volumeMounts:
+            - name: data
+              mountPath: /var/lib/mysql
+  volumeClaimTemplates:
+    - metadata:
+        name: data
+      spec:
+        accessModes: ["ReadWriteOnce"]
+        resources:
+          requests:
+            storage: 2Gi

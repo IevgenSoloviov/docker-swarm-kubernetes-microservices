@@ -1,0 +1,42 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: user-service
+  namespace: {{ .Values.namespace }}
+spec:
+  replicas: {{ .Values.userService.replicas }}
+  selector:
+    matchLabels:
+      app: user-service
+  template:
+    metadata:
+      labels:
+        app: user-service
+    spec:
+      containers:
+        - name: user-service
+          image: "{{ .Values.userService.image.repository }}:{{ .Values.userService.image.tag }}"
+          imagePullPolicy: {{ .Values.userService.image.pullPolicy }}
+          ports:
+            - containerPort: 5002
+          resources:
+            requests:
+              memory: {{ .Values.userService.resources.requests.memory | quote }}
+              cpu: {{ .Values.userService.resources.requests.cpu | quote }}
+            limits:
+              memory: {{ .Values.userService.resources.limits.memory | quote }}
+              cpu: {{ .Values.userService.resources.limits.cpu | quote }}
+          readinessProbe:
+            httpGet:
+              path: /ready
+              port: 5002
+            initialDelaySeconds: 5
+            periodSeconds: 5
+            failureThreshold: 2
+          livenessProbe:
+            httpGet:
+              path: /health
+              port: 5002
+            initialDelaySeconds: 30
+            periodSeconds: 10
+            failureThreshold: 3

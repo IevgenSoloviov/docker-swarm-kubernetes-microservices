@@ -1,0 +1,42 @@
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: message-queue
+  namespace: {{ .Values.namespace }}
+spec:
+  serviceName: message-queue-headless
+  replicas: {{ .Values.messageQueue.replicas }}
+  selector:
+    matchLabels:
+      app: message-queue
+  template:
+    metadata:
+      labels:
+        app: message-queue
+    spec:
+      terminationGracePeriodSeconds: 30
+      containers:
+        - name: rabbitmq
+          image: "{{ .Values.messageQueue.image.repository }}:{{ .Values.messageQueue.image.tag }}"
+          imagePullPolicy: {{ .Values.messageQueue.image.pullPolicy }}
+          ports:
+            - containerPort: 5672
+            - containerPort: 15672
+          resources:
+            requests:
+              memory: {{ .Values.messageQueue.resources.requests.memory | quote }}
+              cpu: {{ .Values.messageQueue.resources.requests.cpu | quote }}
+            limits:
+              memory: {{ .Values.messageQueue.resources.limits.memory | quote }}
+              cpu: {{ .Values.messageQueue.resources.limits.cpu | quote }}
+          volumeMounts:
+            - name: rabbitmq-data
+              mountPath: /var/lib/rabbitmq
+  volumeClaimTemplates:
+    - metadata:
+        name: rabbitmq-data
+      spec:
+        accessModes: ["ReadWriteOnce"]
+        resources:
+          requests:
+            storage: {{ .Values.messageQueue.persistence.size | quote }}

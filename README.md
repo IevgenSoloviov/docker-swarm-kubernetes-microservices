@@ -304,16 +304,6 @@ El resultat és una base sòlida per entendre la diferència entre contenidors l
 
 Projecte realitzat com a pràctica d'orquestració de contenidors amb Docker Swarm i Kubernetes.
 
----
 
-## .gitignore recomanat
-
-```gitignore
-.env
-*.log
-.DS_Store
-node_modules/
-__pycache__/
-.vscode/
 .idea/
 ```

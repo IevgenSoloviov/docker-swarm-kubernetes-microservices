@@ -303,7 +303,3 @@ El resultat és una base sòlida per entendre la diferència entre contenidors l
 ## Autor
 
 Projecte realitzat com a pràctica d'orquestració de contenidors amb Docker Swarm i Kubernetes.
-
-
-.idea/
-```

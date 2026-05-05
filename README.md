@@ -48,7 +48,7 @@ Aquest repositori recull el desenvolupament complet del **projecte intermodular 
 
 L'objectiu és simular un entorn real on es despleguen serveis, s'orquestren infraestructures i es protegeixen mitjançant sistemes automatitzats de monitorització i seguretat.
 
-> **Enfocament:** Cada bloc és independent, però tots formen part d'un mateix entorn integrat que evoluciona des del desplegament fins a la protecció activa.
+> **Enfocament:** Cada bloc és independent a nivell tècnic, però tots formen part del mateix projecte intermodular i permeten demostrar competències complementàries en contenidors, orquestració, automatització i ciberseguretat.
 
 ---
 
@@ -175,34 +175,48 @@ Projecte de ciberseguretat que implementa un sistema de detecció i prevenció d
 
 ##  Relació entre projectes
 
-Els tres blocs no són independents, sinó que representen **fases d'un mateix entorn integrat**:
+Els tres blocs del repositori formen part del mateix **projecte intermodular d’ASIX**, però no representen una única infraestructura connectada tècnicament entre si.
+
+Cada bloc treballa una àrea diferent de l’administració de sistemes i té el seu propi entorn, objectius, tecnologies i validacions. La relació entre ells és principalment **acadèmica i competencial**, ja que tots contribueixen a demostrar coneixements relacionats amb contenidors, orquestració, automatització, monitorització i ciberseguretat.
 
 ```
-┌─────────────────────────────────────────────────────────────┐
-│                     ENTORN COMPLET ASIX                     │
-├──────────────────┬──────────────────┬───────────────────────┤
-│  01 · DOCKER     │  02 · SHOPMICRO  │  03 · IDS/IPS         │
-│                  │                  │                       │
-│  Infraestructura │  Microserveis    │  Seguretat            │
-│  Kubernetes      │  Helm · Istio    │  Ansible · Suricata   │
-│  Base            │  Avançat         │  Elastic Stack        │
-└──────────────────┴──────────────────┴───────────────────────┘
+┌─────────────────────────────────────────────────────────────────────┐
+│                  PROJECTE INTERMODULAR ASIX                         │
+├──────────────────────┬──────────────────────┬───────────────────────┤
+│  01 · DOCKER BÀSIC   │  02 · SHOPMICRO      │  03 · IDS/IPS +       │
+│                      │                      │       ANSIBLE         │
+│  Contenització       │  Microserveis        │  Ciberseguretat       │
+│  Docker Compose      │  Kubernetes avançat  │  Automatització       │
+│  Swarm · K8s base    │  Helm · Istio        │  Suricata · Elastic   │
+└──────────────────────┴──────────────────────┴───────────────────────┘
 ```
 
-**Flux complet de l'entorn:**
+### Enfocament de cada bloc
 
-```
-Infraestructura → Microserveis → Trànsit → IDS → Anàlisi → Resposta
-      01               02           02       03      03         03
-```
-
-| Fase | Bloc | Descripció |
+| Bloc | Àrea principal | Finalitat |
 |---|---|---|
-| **1** | Docker Bàsic | Desplegament i orquestració de serveis |
-| **2** | ShopMicro | Infraestructura de microserveis en producció |
-| **3** | IDS/IPS | Monitorització, detecció i resposta a atacs |
+| **01 · Docker Bàsic** | Contenització i orquestració inicial | Aprendre a desplegar serveis amb Docker Compose, Docker Swarm i Kubernetes bàsic |
+| **02 · ShopMicro** | Microserveis i cloud-native | Implementar una arquitectura avançada amb Kubernetes, Helm, Istio, HPA i observabilitat |
+| **03 · IDS/IPS + Ansible** | Automatització i ciberseguretat | Automatitzar una infraestructura amb Ansible i protegir-la amb Suricata, Elastic Stack i iptables |
 
----
+### Relació global
+
+Tot i que els projectes no depenen directament els uns dels altres, segueixen una evolució lògica dins del cicle:
+
+```
+Contenització → Orquestració avançada → Automatització i seguretat
+      01                  02                      03
+```
+
+Aquesta organització permet demostrar una visió completa de l’administració de sistemes moderns:
+
+- desplegament de serveis amb contenidors;
+- gestió d’infraestructures orquestrades;
+- automatització de configuracions;
+- monitorització i anàlisi d’esdeveniments;
+- detecció i resposta davant incidents de seguretat.
+
+Per tant, la connexió entre els blocs no és una connexió tècnica directa, sinó una connexió formativa: cada projecte cobreix una part diferent de les competències treballades durant el projecte intermodular.
 
 ##  Stack tecnològic complet
 

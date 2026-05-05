@@ -1,4 +1,37 @@
-# Sistema IDS amb Suricata
+<div align="center">
+
+<br/>
+
+```
+███████╗██╗   ██╗██████╗ ██╗ ██████╗ █████╗ ████████╗ █████╗ 
+██╔════╝██║   ██║██╔══██╗██║██╔════╝██╔══██╗╚══██╔══╝██╔══██╗
+███████╗██║   ██║██████╔╝██║██║     ███████║   ██║   ███████║
+╚════██║██║   ██║██╔══██╗██║██║     ██╔══██║   ██║   ██╔══██║
+███████║╚██████╔╝██║  ██║██║╚██████╗██║  ██║   ██║   ██║  ██║
+╚══════╝ ╚═════╝ ╚═╝  ╚═╝╚═╝ ╚═════╝╚═╝  ╚═╝   ╚═╝   ╚═╝  ╚═╝
+
+              S i s t e m a   I D S   a m b   S u r i c a t a
+           D e t e c c i ó   →   A n à l i s i   →   R e s p o s t a
+```
+
+### Sistema IDS amb Suricata · Monitorització de trànsit · Resposta activa
+
+*Suricata · Nmap · Elastic Stack · Filebeat · Kibana · iptables · Kali Linux*
+
+<br/>
+
+![Suricata](https://img.shields.io/badge/Suricata-IDS-F15A24?style=for-the-badge)
+![Nmap](https://img.shields.io/badge/Nmap-Network%20Scanning-004170?style=for-the-badge)
+![iptables](https://img.shields.io/badge/iptables-Firewall%20%26%20NAT-333333?style=for-the-badge)
+![Elastic Stack](https://img.shields.io/badge/Elastic_Stack-005571?style=for-the-badge&logo=elastic&logoColor=white)
+![Filebeat](https://img.shields.io/badge/Filebeat-005571?style=for-the-badge&logo=elastic&logoColor=white)
+![Kibana](https://img.shields.io/badge/Kibana-005571?style=for-the-badge&logo=kibana&logoColor=white)
+![Kali Linux](https://img.shields.io/badge/Kali_Linux-557C94?style=for-the-badge&logo=kalilinux&logoColor=white)
+![Linux](https://img.shields.io/badge/Linux-FCC624?style=for-the-badge&logo=linux&logoColor=black)
+
+<br/>
+
+</div>
 
 ## Instal·lació
 

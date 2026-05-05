@@ -35,7 +35,7 @@
 
 ---
 
-## 📋 Descripció del projecte
+##  Descripció del projecte
 
 **ShopMicro** és una plataforma basada en microserveis desplegada sobre Kubernetes, dissenyada per simular un entorn real de producció amb alta disponibilitat, escalabilitat i monitorització completa.
 

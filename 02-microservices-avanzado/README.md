@@ -35,7 +35,7 @@
 
 ---
 
-##  Descripció del projecte
+## 📋 Descripció del projecte
 
 **ShopMicro** és una plataforma basada en microserveis desplegada sobre Kubernetes, dissenyada per simular un entorn real de producció amb alta disponibilitat, escalabilitat i monitorització completa.
 
@@ -45,7 +45,7 @@ El projecte segueix una evolució progressiva des d'un desplegament inicial amb 
 
 ---
 
-##  Objectius principals
+## 🎯 Objectius principals
 
 - 🐳 Crear un entorn multi-contenidor inicial amb Docker Compose
 - 🐝 Migrar i orquestrar serveis amb Docker Swarm
@@ -58,7 +58,7 @@ El projecte segueix una evolució progressiva des d'un desplegament inicial amb 
 
 ---
 
-##  Arquitectura del sistema
+## 🏗️ Arquitectura del sistema
 
 ```
 ┌──────────────────────────────────────────────────────┐
@@ -107,7 +107,7 @@ El projecte segueix una evolució progressiva des d'un desplegament inicial amb 
 
 ---
 
-##  Fases del projecte
+## 🚀 Fases del projecte
 
 ### Fase 1 — Docker Compose
 
@@ -198,11 +198,15 @@ kubectl scale deployment product-service --replicas=3
 kubectl port-forward svc/nginx-service 8081:80
 ```
 
+**Pods en execució:**
+
+![kubectl get pods](images/kubectl-get-pods.png)
+
 </details>
 
 ---
 
-##  Kubernetes — Característiques avançades
+## ☸️ Kubernetes — Característiques avançades
 
 ### ⚖️ Escalat automàtic (HPA)
 
@@ -219,6 +223,14 @@ kubectl autoscale deployment product-service \
 |---|---|
 | **Scale-out** | Augment automàtic de pods sota càrrega elevada |
 | **Scale-in** | Reducció automàtica en alliberar recursos de CPU |
+
+**HPA creat i operatiu:**
+
+![kubectl get hpa](images/kubectl-get-hpa.png)
+
+**HPA en temps real (watch):**
+
+![kubectl get hpa watch](images/kubectl-get-hpa-n-shopmicro-watch.png)
 
 ---
 
@@ -266,13 +278,21 @@ resources:
 
 ---
 
-##  Helm — Gestió del desplegament
+## 📦 Helm — Gestió del desplegament
 
 S'ha creat un **Helm Chart** complet per gestionar tot el cicle de vida del desplegament:
 
 ```bash
 helm install shopmicro ./helm -n shopmicro-helm
 ```
+
+**Instal·lació del Chart:**
+
+![helm install shopmicro](images/helm%20install%20shopmicro.png)
+
+**Release instal·lat i operatiu:**
+
+![Helm release instal·lat](images/Helm%20release%20instal·lat.png)
 
 | Funcionalitat | Descripció |
 |---|---|
@@ -283,7 +303,7 @@ helm install shopmicro ./helm -n shopmicro-helm
 
 ---
 
-##  Istio Service Mesh
+## 🕸️ Istio Service Mesh
 
 ### Funcionalitats implementades
 
@@ -314,9 +334,21 @@ spec:
             host: product-service
 ```
 
+**Pods amb Istio aplicat:**
+
+![kubectl get pods istio](images/kubectl%20get%20pods%20-n%20shopmicro%20istio%20aplicat.png)
+
+**VirtualService actiu:**
+
+![kubectl get virtualservice](images/kubectl%20get%20virtualservice.png)
+
+**Kiali — Graf de serveis:**
+
+![Kiali UI](images/Captura%20de%20la%20UI%20de%20Kiali.png)
+
 ---
 
-##  Monitorització
+## 📊 Monitorització
 
 ### Prometheus
 
@@ -330,9 +362,17 @@ spec:
 - Dashboards personalitzats per cada servei
 - Observació de patrons d'escalat i càrrega
 
+**Dashboard Grafana — Visió general:**
+
+![Grafana mètriques](images/Grafana%20amb%20metriques.png)
+
+**Dashboard Grafana — Detall de serveis:**
+
+![Grafana mètriques 2](images/Grafana%20amb%20metriques2.png)
+
 ---
 
-##  Accés a l'aplicació
+## 🖥️ Accés a l'aplicació
 
 ### 🐳 Docker Compose
 
@@ -369,6 +409,10 @@ echo "$(minikube ip) shopmicro.local" | sudo tee -a /etc/hosts
 
 > 🌐 **http://shopmicro.local/**
 
+**Aplicació accessible via Ingress:**
+
+![Navegador Ingress](images/Captura%20del%20navegador.png)
+
 Routing configurat:
 
 | Ruta | Destí |
@@ -378,10 +422,10 @@ Routing configurat:
 
 ---
 
-##  Estructura del repositori
+## 📁 Estructura del repositori
 
 ```
-shopmicro/
+02-microservices-avanzado/
 │
 ├── 📁 compose/           # Docker Compose (fase inicial)
 │   ├── docker-compose.yml
@@ -407,13 +451,13 @@ shopmicro/
 │   ├── virtualservices/
 │   └── destinationrules/
 │
-└── 📁 docs/              # Documentació i evidències
-    └── images/
+├── 📁 images/            # Captures d'evidències
+└── 📁 docs/              # Documentació tècnica
 ```
 
 ---
 
-##  Seguretat aplicada
+## 🔐 Seguretat aplicada
 
 | Mesura | Descripció |
 |---|---|
@@ -422,28 +466,6 @@ shopmicro/
 | 🚫 **Exposició mínima** | Només l'Ingress és accessible externament |
 | 👤 **Usuari no privilegiat** | Contenidors executats sense permisos root |
 | 🔒 **TLS automàtic** | Comunicació xifrada entre nodes amb Istio mTLS |
-
----
-
-##  Evidències recomanades
-
-Les captures es poden afegir dins la carpeta `docs/images/`.
-
-| Evidència | Descripció |
-|---|---|
-| ✅ Pods en estat `Running` | `kubectl get pods` |
-| ✅ HPA creat i operatiu | `kubectl get hpa` |
-| ✅ Escalat automàtic sota càrrega | `kubectl describe hpa` |
-| ✅ Grafana amb mètriques en temps real | Captura del dashboard |
-| ✅ Ingress responent a `shopmicro.local` | Captura del navegador |
-| ✅ Kiali amb el graf de serveis complet | Captura de la UI de Kiali |
-| ✅ Helm release instal·lat | `helm list -n shopmicro-helm` |
-| ✅ VirtualService Istio actiu | `kubectl get virtualservice` |
-
-Exemple d'inserció d'una captura:
-```markdown
-![Pods en Running](docs/images/k8s-pods-running.png)
-```
 
 ---
 
@@ -498,7 +520,7 @@ kubectl port-forward svc/nginx-service 8081:80
 
 ---
 
-##  Comparativa de tecnologies
+## 📊 Comparativa de tecnologies
 
 | Tecnologia | ✅ Avantatges | ⚠️ Limitacions |
 |---|---|---|
@@ -510,7 +532,7 @@ kubectl port-forward svc/nginx-service 8081:80
 
 ---
 
-##  Conclusions
+## 🏁 Conclusions
 
 **ShopMicro** demostra la implementació completa d'una arquitectura de microserveis real sobre Kubernetes, integrant les eines i pràctiques pròpies dels entorns professionals:
 

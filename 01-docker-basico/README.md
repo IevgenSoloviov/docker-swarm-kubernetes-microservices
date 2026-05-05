@@ -33,7 +33,7 @@
 
 ---
 
-##  Descripció del projecte
+## 📋 Descripció del projecte
 
 Aquest projecte implementa el desplegament d'una aplicació contenitzada utilitzant **Docker Compose**, **Docker Swarm** i **Kubernetes**.
 
@@ -43,7 +43,7 @@ El projecte parteix d'una arquitectura multicapa tipus **LAMP**, formada per una
 
 ---
 
-##  Objectius principals
+## 🎯 Objectius principals
 
 - 🐳 Crear un entorn multi-contenidor amb Docker Compose
 - 🔄 Migrar el desplegament a Docker Swarm
@@ -55,7 +55,7 @@ El projecte parteix d'una arquitectura multicapa tipus **LAMP**, formada per una
 
 ---
 
-##  Arquitectura general
+## 🏗️ Arquitectura general
 
 L'arquitectura del projecte es basa en tres capes principals:
 
@@ -88,7 +88,7 @@ L'arquitectura del projecte es basa en tres capes principals:
 
 ---
 
-##  Fases del projecte
+## 🚀 Fases del projecte
 
 ### Fase 1 — Docker Compose
 
@@ -113,6 +113,18 @@ docker ps
 docker compose logs
 docker compose down
 ```
+
+**Docker Compose en funcionament:**
+
+![Docker Compose up](images/docker-compose-up.png)
+
+**Contenidors en execució:**
+
+![Docker PS](images/docker-ps.png)
+
+**Aplicació web accessible:**
+
+![Aplicació web](images/Aplicacio-web.png)
 
 </details>
 
@@ -145,6 +157,18 @@ docker service ls
 docker service scale mystack_app=3
 docker service logs mystack_app
 ```
+
+**Swarm inicialitzat:**
+
+![Docker Swarm Init](images/docker-swarm-init.png)
+
+**Serveis desplegats:**
+
+![Docker Service LS](images/docker-service-ls.png)
+
+**Escalat de rèpliques:**
+
+![Docker Service Scale](images/docker-service-scale.png)
 
 </details>
 
@@ -202,11 +226,19 @@ kubectl scale deployment app-deployment --replicas=3
 kubectl port-forward svc/nginx-service 8081:80
 ```
 
+**Pods en estat Running:**
+
+![Kubectl Get Pods](images/kubectl-get-pods.png)
+
+**Services creats:**
+
+![Kubectl Get SVC](images/kubectl-get-svc.png)
+
 </details>
 
 ---
 
-##  Accés a l'aplicació
+## 🖥️ Accés a l'aplicació
 
 ### 🐳 Docker Compose
 
@@ -226,6 +258,8 @@ kubectl port-forward svc/nginx-service 8081:80
 
 > 🌐 **http://127.0.0.1:8081/**
 
+![Port Forward](images/port-forward.png)
+
 ---
 
 ### 🌍 Kubernetes amb Ingress
@@ -243,9 +277,11 @@ echo "$(minikube ip) microservices.local" | sudo tee -a /etc/hosts
 
 > 🌐 **http://microservices.local/**
 
+![Ingress](images/Ingress.png)
+
 ---
 
-##  Estructura del repositori
+## 📁 Estructura del repositori
 
 ```
 01-docker-basico/
@@ -273,30 +309,6 @@ echo "$(minikube ip) microservices.local" | sudo tee -a /etc/hosts
 │
 ├── .env.example
 └── README.md
-```
-
----
-
-##  Evidències recomanades
-
-Les captures es poden afegir dins la carpeta `images/`.
-
-| Evidència | Descripció |
-|---|---|
-| ✅ Docker Compose funcionant | `docker compose up` correcte |
-| ✅ Sortida de `docker ps` | Contenidors en execució |
-| ✅ Aplicació web accessible | Captura del navegador |
-| ✅ Docker Swarm inicialitzat | `docker swarm init` |
-| ✅ Serveis Swarm desplegats | `docker service ls` |
-| ✅ Escalat de rèpliques | `docker service scale` |
-| ✅ Kubernetes pods `Running` | `kubectl get pods` |
-| ✅ Services creats | `kubectl get svc` |
-| ✅ Accés amb port-forward | Navegador via `127.0.0.1` |
-| ✅ Accés amb Ingress | Navegador via domini local |
-
-Exemple d'inserció d'una captura:
-```markdown
-![Docker Compose funcionant](images/compose-web.png)
 ```
 
 ---
@@ -344,7 +356,7 @@ kubectl port-forward svc/nginx-service 8081:80
 
 ---
 
-##  Comparativa de tecnologies
+## 📊 Comparativa de tecnologies
 
 | Tecnologia | ✅ Avantatges | ⚠️ Limitacions |
 |---|---|---|
@@ -354,7 +366,7 @@ kubectl port-forward svc/nginx-service 8081:80
 
 ---
 
-##  Conclusions
+## 🏁 Conclusions
 
 Aquest projecte ha permès validar el cicle complet de desplegament d'una aplicació contenitzada.
 

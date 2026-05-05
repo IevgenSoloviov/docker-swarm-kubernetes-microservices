@@ -1,4 +1,37 @@
-# Infraestructura d’Automatització (Ansible)
+<div align="center">
+
+<br/>
+
+```
+ █████╗ ███╗   ██╗███████╗██╗██████╗ ██╗     ███████╗
+██╔══██╗████╗  ██║██╔════╝██║██╔══██╗██║     ██╔════╝
+███████║██╔██╗ ██║███████╗██║██████╔╝██║     █████╗  
+██╔══██║██║╚██╗██║╚════██║██║██╔══██╗██║     ██╔══╝  
+██║  ██║██║ ╚████║███████║██║██████╔╝███████╗███████╗
+╚═╝  ╚═╝╚═╝  ╚═══╝╚══════╝╚═╝╚═════╝ ╚══════╝╚══════╝
+
+        I n f r a e s t r u c t u r a   d ’ A u t o m a t i t z a c i ó
+                    A n s i b l e   →   S S H   →   D o c k e r
+```
+
+### Infraestructura d’Automatització (Ansible)
+
+*Node de control · Nodes gestionats · Playbooks · SSH · Docker · Nginx*
+
+<br/>
+
+![Ansible](https://img.shields.io/badge/Ansible-Automation-EE0000?style=for-the-badge&logo=ansible&logoColor=white)
+![Docker](https://img.shields.io/badge/Docker-Lab%20Containers-2496ED?style=for-the-badge&logo=docker&logoColor=white)
+![SSH](https://img.shields.io/badge/SSH-Remote%20Management-333333?style=for-the-badge)
+![YAML](https://img.shields.io/badge/YAML-Playbooks-CB171E?style=for-the-badge&logo=yaml&logoColor=white)
+![Nginx](https://img.shields.io/badge/Nginx-Web%20Server-009639?style=for-the-badge&logo=nginx&logoColor=white)
+![Git](https://img.shields.io/badge/Git-Code%20Deployment-F05032?style=for-the-badge&logo=git&logoColor=white)
+![Debian](https://img.shields.io/badge/Debian-Managed%20Nodes-A81D33?style=for-the-badge&logo=debian&logoColor=white)
+![Linux](https://img.shields.io/badge/Linux-System%20Administration-FCC624?style=for-the-badge&logo=linux&logoColor=black)
+
+<br/>
+
+</div>
 
 La infraestructura d'automatització es basa en **Ansible**, que permet gestionar i configurar diversos servidors de forma centralitzada.
 

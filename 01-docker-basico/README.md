@@ -33,7 +33,7 @@
 
 ---
 
-## 📋 Descripció del projecte
+##  Descripció del projecte
 
 Aquest projecte implementa el desplegament d'una aplicació contenitzada utilitzant **Docker Compose**, **Docker Swarm** i **Kubernetes**.
 
@@ -43,7 +43,7 @@ El projecte parteix d'una arquitectura multicapa tipus **LAMP**, formada per una
 
 ---
 
-## 🎯 Objectius principals
+##  Objectius principals
 
 - 🐳 Crear un entorn multi-contenidor amb Docker Compose
 - 🔄 Migrar el desplegament a Docker Swarm
@@ -55,7 +55,7 @@ El projecte parteix d'una arquitectura multicapa tipus **LAMP**, formada per una
 
 ---
 
-## 🏗️ Arquitectura general
+##  Arquitectura general
 
 L'arquitectura del projecte es basa en tres capes principals:
 
@@ -88,7 +88,7 @@ L'arquitectura del projecte es basa en tres capes principals:
 
 ---
 
-## 🚀 Fases del projecte
+##  Fases del projecte
 
 ### Fase 1 — Docker Compose
 
@@ -238,7 +238,7 @@ kubectl port-forward svc/nginx-service 8081:80
 
 ---
 
-## 🖥️ Accés a l'aplicació
+##  Accés a l'aplicació
 
 ### 🐳 Docker Compose
 
@@ -281,7 +281,7 @@ echo "$(minikube ip) microservices.local" | sudo tee -a /etc/hosts
 
 ---
 
-## 📁 Estructura del repositori
+##  Estructura del repositori
 
 ```
 01-docker-basico/
@@ -313,7 +313,7 @@ echo "$(minikube ip) microservices.local" | sudo tee -a /etc/hosts
 
 ---
 
-## 🔧 Problemes detectats i solucions
+##  Problemes detectats i solucions
 
 <details>
 <summary><b>❌ ImagePullBackOff en Kubernetes</b></summary>
@@ -356,7 +356,7 @@ kubectl port-forward svc/nginx-service 8081:80
 
 ---
 
-## 📊 Comparativa de tecnologies
+##  Comparativa de tecnologies
 
 | Tecnologia | ✅ Avantatges | ⚠️ Limitacions |
 |---|---|---|
@@ -366,7 +366,7 @@ kubectl port-forward svc/nginx-service 8081:80
 
 ---
 
-## 🏁 Conclusions
+##  Conclusions
 
 Aquest projecte ha permès validar el cicle complet de desplegament d'una aplicació contenitzada.
 

@@ -33,6 +33,8 @@
 ![Nmap](https://img.shields.io/badge/Nmap-Network%20Scanning-004170?style=for-the-badge)
 ![iptables](https://img.shields.io/badge/iptables-Firewall%20%26%20NAT-333333?style=for-the-badge)
 ![Kali Linux](https://img.shields.io/badge/Kali_Linux-557C94?style=for-the-badge&logo=kalilinux&logoColor=white)
+![YAML](https://img.shields.io/badge/YAML-Playbooks-CB171E?style=for-the-badge&logo=yaml&logoColor=white)
+![Debian](https://img.shields.io/badge/Debian-Managed%20Nodes-A81D33?style=for-the-badge&logo=debian&logoColor=white)
 
 <br/>
 

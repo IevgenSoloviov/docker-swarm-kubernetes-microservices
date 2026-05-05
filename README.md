@@ -29,6 +29,10 @@
 ![Elasticsearch](https://img.shields.io/badge/Elastic_Stack-005571?style=for-the-badge&logo=elastic&logoColor=white)
 ![Prometheus](https://img.shields.io/badge/Prometheus-E6522C?style=for-the-badge&logo=prometheus&logoColor=white)
 ![Linux](https://img.shields.io/badge/Linux-FCC624?style=for-the-badge&logo=linux&logoColor=black)
+![Suricata](https://img.shields.io/badge/Suricata-IDS%2FIPS-orange?style=for-the-badge)
+![Nmap](https://img.shields.io/badge/Nmap-Network%20Scanning-004170?style=for-the-badge)
+![iptables](https://img.shields.io/badge/iptables-Firewall%20%26%20NAT-333333?style=for-the-badge)
+![Kali Linux](https://img.shields.io/badge/Kali_Linux-557C94?style=for-the-badge&logo=kalilinux&logoColor=white)
 
 <br/>
 

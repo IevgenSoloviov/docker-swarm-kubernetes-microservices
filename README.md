@@ -218,6 +218,8 @@ Aquesta organització permet demostrar una visió completa de l’administració
 
 Per tant, la connexió entre els blocs no és una connexió tècnica directa, sinó una connexió formativa: cada projecte cobreix una part diferent de les competències treballades durant el projecte intermodular.
 
+---
+
 ##  Stack tecnològic complet
 
 | Àrea | Tecnologies |

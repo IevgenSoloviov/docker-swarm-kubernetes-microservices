@@ -279,6 +279,6 @@ La integració de **Zabbix** amb múltiples dispositius, canals de notificació 
 
 <br/>
 
-*Supervisió · Alertes · Autorecuperació · SNMP · Elastic Stack*
+*Supervisió · Alertes · Autorecuperació · SNMP*
 
 </div>

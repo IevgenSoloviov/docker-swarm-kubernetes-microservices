@@ -33,7 +33,7 @@
 
 ---
 
-## 📋 Descripció del projecte
+##  Descripció del projecte
 
 Implementació d'un sistema de **monitorització professional** en entorn de laboratori virtualitzat, amb supervisió de dispositius **Linux**, **Windows** i **SNMP**, detecció d'incidències, notificacions automàtiques i mecanismes d'**autorecuperació**.
 
@@ -41,7 +41,7 @@ El projecte simula un entorn real on un administrador de sistemes supervisa múl
 
 ---
 
-## 🎯 Objectiu
+##  Objectiu
 
 Desplegar un sistema de monitorització amb **Zabbix** capaç de:
 
@@ -53,7 +53,7 @@ Desplegar un sistema de monitorització amb **Zabbix** capaç de:
 
 ---
 
-## 🖥️ Entorn del laboratori
+##  Entorn del laboratori
 
 ```
 ┌─────────────────────────────────────────────────────────┐
@@ -85,7 +85,7 @@ Desplegar un sistema de monitorització amb **Zabbix** capaç de:
 
 ---
 
-## ✨ Funcionalitats implementades
+##  Funcionalitats implementades
 
 | Funcionalitat | Descripció |
 |---|---|
@@ -102,7 +102,7 @@ Desplegar un sistema de monitorització amb **Zabbix** capaç de:
 
 ---
 
-## 🔧 Tecnologies utilitzades
+##  Tecnologies utilitzades
 
 | Tecnologia | Ús |
 |---|---|
@@ -115,7 +115,7 @@ Desplegar un sistema de monitorització amb **Zabbix** capaç de:
 
 ---
 
-## 📁 Estructura del repositori
+##  Estructura del repositori
 
 ```
 04-monitoritzacio-zabbix/
@@ -151,7 +151,7 @@ Desplegar un sistema de monitorització amb **Zabbix** capaç de:
 
 ---
 
-## 📚 Contingut del repositori
+##  Contingut del repositori
 
 ### ⚙️ Configuracions Zabbix
 
@@ -227,7 +227,7 @@ if ((Get-Service -Name $service).Status -ne "Running") {
 
 ---
 
-### 🖼️ Captures
+###  Captures
 
 El directori `captures/` conté evidències visuals organitzades per categoria:
 
@@ -241,7 +241,7 @@ El directori `captures/` conté evidències visuals organitzades per categoria:
 
 ---
 
-## 🔔 Sistema de notificacions
+##  Sistema de notificacions
 
 ```
 Incidència detectada
@@ -263,7 +263,7 @@ Incidència detectada
 
 ---
 
-## 🏁 Conclusions
+##  Conclusions
 
 Aquest projecte permet demostrar competències en **administració de sistemes**, **monitorització de xarxes** i **automatització de respostes** davant incidències.
 

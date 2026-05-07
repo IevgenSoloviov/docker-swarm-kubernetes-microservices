@@ -53,7 +53,7 @@
 
 ---
 
-## 📋 Descripció general
+##  Descripció general
 
 Aquest repositori recull el desenvolupament complet del **projecte intermodular del cicle ASIX**, estructurat en quatre blocs que cobreixen àrees clau de l'administració de sistemes moderns.
 
@@ -63,7 +63,7 @@ L'objectiu és simular un entorn real on es despleguen serveis, s'orquestren inf
 
 ---
 
-## 🎯 Objectius principals
+##  Objectius principals
 
 - 🐳 Dominar el cicle complet de contenització i orquestració
 - ☸️ Desplegar arquitectures cloud-native amb Kubernetes
@@ -75,7 +75,7 @@ L'objectiu és simular un entorn real on es despleguen serveis, s'orquestren inf
 
 ---
 
-## 📁 Estructura del repositori
+##  Estructura del repositori
 
 ```
 asix-projecte-intermodular/
@@ -88,7 +88,7 @@ asix-projecte-intermodular/
 
 ---
 
-## 🗂️ Projectes inclosos
+##  Projectes inclosos
 
 ### 🔹 01 — Docker Bàsic
 
@@ -221,7 +221,7 @@ Implementació d'un sistema de monitorització professional en entorn de laborat
 
 ---
 
-## 🔗 Relació entre projectes
+##  Relació entre projectes
 
 Els quatre blocs del repositori formen part del mateix **projecte intermodular d'ASIX**, però no representen una única infraestructura connectada tècnicament entre si.
 
@@ -259,7 +259,7 @@ Aquesta organització permet demostrar una visió completa de l'administració d
 
 ---
 
-## 🛠️ Stack tecnològic complet
+##  Stack tecnològic complet
 
 | Àrea | Tecnologies |
 |---|---|
@@ -277,7 +277,7 @@ Aquesta organització permet demostrar una visió completa de l'administració d
 
 ---
 
-## 🏁 Conclusions
+## Conclusions
 
 Aquest projecte intermodular integra les àrees fonamentals de l'administració de sistemes moderns en un entorn coherent i progressiu:
 

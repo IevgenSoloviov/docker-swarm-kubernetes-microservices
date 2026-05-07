@@ -225,7 +225,7 @@ Implementació d'un sistema de monitorització professional en entorn de laborat
 
 Els quatre blocs del repositori formen part del mateix **projecte intermodular d'ASIX**, però no representen una única infraestructura connectada tècnicament entre si.
 
-Cada bloc treballa una àrea diferent de l'administració de sistemes i té el seu propi entorn, objectius, tecnologies i validacions. La relació entre ells és principalment **acadèmica i competencial**.
+Cada bloc treballa una àrea diferent de l’administració de sistemes i té el seu propi entorn, objectius, tecnologies i validacions. La relació entre ells és principalment acadèmica i competencial, ja que tots contribueixen a demostrar coneixements relacionats amb contenidors, orquestració, automatització, monitorització i ciberseguretat.
 
 ```
 ┌──────────────────────────────────────────────────────────────────────────────┐
